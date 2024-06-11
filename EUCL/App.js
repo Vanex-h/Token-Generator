@@ -12,7 +12,7 @@ const Stack = createStackNavigator();
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="TokenHistory">
+      <Stack.Navigator initialRouteName="TokenValidator">
         <Stack.Screen name="TokenGenerator" component={TokenGenerator} />
         <Stack.Screen name="TokenValidator" component={TokenValidator} />
         <Stack.Screen name="TokenHistory" component={TokenHistory} />

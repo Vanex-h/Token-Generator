@@ -9,11 +9,18 @@ const TokenHistory = () => {
   const [error, setError] = useState(null);
 
   const handleFetchHistory = async () => {
+    if(meterNumber==null || meterNumber.length<6){
+      setError('Meter Number must be 6 digits');
+      return;
+    }
+    
     try {
-      const response = await api.get(`/tokens/${meterNumber}`);
+      console.log(meterNumber)
+      const response = await api.get(`tokens/${meterNumber}`);
       setTokens(response.data);
       setError(null);
     } catch (err) {
+      console.log(err);
       setError(err.response?.data?.message || 'Something went wrong');
     }
   };

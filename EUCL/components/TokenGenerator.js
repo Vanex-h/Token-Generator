@@ -11,7 +11,7 @@ const TokenGenerator = () => {
     const handleGenerateToken = async () => {
         try {
             console.log(meterNumber, amount)
-            const response = await api.post('http://localhost:3000/api/generate-token', { meterNumber, amount });
+            const response = await api.post('generate-token', { meterNumber, amount });
             setToken(response.data.token);
             setError('');
         } catch (err) {
