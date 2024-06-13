@@ -4,6 +4,8 @@ import { useNavigation } from "@react-navigation/native";
 import api from "../services/api";
 import tw from "twrnc";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import { useRouter } from "expo-router";
+
 
 const TokenGenerator = () => {
   const [meterNumber, setMeterNumber] = useState("");
@@ -12,6 +14,7 @@ const TokenGenerator = () => {
   const [error, setError] = useState("");
   const navigation = useNavigation();
   const [refreshing, setRefreshing] = React.useState(false);
+  const router=useRouter()
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
@@ -21,10 +24,11 @@ const TokenGenerator = () => {
   }, []);
 
   const handleGenerateToken = async () => {
-    if (!/^\d{6}$/.test(meterNumber)) {
-      setError("Meter number must be exactly 6 digits.");
+    if (!/^\d{6}$/.test(meterNumber) || meterNumber== 0) {
+      setError("Meter number must be exactly 6 digits and not 0.");
       return;
     }
+    
 
     if (amount < 100 || amount % 100 !== 0 || amount > (365 * 5 * 100)) {
       setError(
@@ -77,7 +81,9 @@ const TokenGenerator = () => {
           <Text style={tw`text-lg`}>Token: 
              <Text style={tw`text-green-500`}> {token}
              </Text></Text>
-      {/* <TouchableOpacity style={tw`border-2 border-blue-500 mt-3 rounded-full w-48 h-10 flex-coljustify-center`}>
+      {/* <TouchableOpacity style={tw`border-2 border-blue-500 mt-3 rounded-full w-48 h-10 flex-col justify-center`} onPress={()=>{
+        router.push("/TokenGenerator")
+      }}>
         <Text style={tw`text-blue-500 text-center p-2`} >Get Token for new meter number &gt;</Text>
       </TouchableOpacity> */}
         </>

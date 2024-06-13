@@ -72,6 +72,7 @@ const TokenHistory = () => {
                 <Text>Date: {new Date(item.purchasedDate).toLocaleString()}</Text>
               </View>
             )}
+            
           />
         </>
       )}
