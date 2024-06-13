@@ -1,4 +1,3 @@
-// App.js
 import 'react-native-gesture-handler';
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
@@ -12,10 +11,10 @@ const Stack = createStackNavigator();
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="TokenValidator">
-        <Stack.Screen name="TokenGenerator" component={TokenGenerator} />
-        <Stack.Screen name="TokenValidator" component={TokenValidator} />
-        <Stack.Screen name="TokenHistory" component={TokenHistory} />
+      <Stack.Navigator initialRouteName="TokenGenerator" >
+        <Stack.Screen name="TokenGenerator" component={TokenGenerator} options={{ headerShown: false }} />
+        <Stack.Screen name="TokenValidator" component={TokenValidator} options={{ headerShown: true }} />
+        <Stack.Screen name="TokenHistory" component={TokenHistory} options={{ headerShown: true }} />
       </Stack.Navigator>
     </NavigationContainer>
   );

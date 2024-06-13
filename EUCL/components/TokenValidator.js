@@ -1,12 +1,21 @@
-// components/TokenValidator.js
-import React, { useState } from 'react';
-import { View, TextInput, Button, Text, StyleSheet } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, TextInput, Button, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { useRoute, useNavigation } from '@react-navigation/native';
 import api from '../services/api';
+import tw from 'twrnc';
 
 const TokenValidator = () => {
-  const [token, setToken] = useState('');
+  const route = useRoute();
+  const navigation = useNavigation();
+  const [token, setToken] = useState(route.params?.token || '');
   const [days, setDays] = useState(null);
   const [error, setError] = useState(null);
+
+  useEffect(() => {
+    if (token) {
+      handleValidateToken();
+    }
+  }, [token]);
 
   const handleValidateToken = async () => {
     try {
@@ -19,37 +28,24 @@ const TokenValidator = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={tw`flex-1 justify-center p-4`}>
       <TextInput
-        style={styles.input}
+        style={tw`h-10 border border-gray-400 mb-3 pl-2`}
         placeholder="Token"
         value={token}
         onChangeText={setToken}
         maxLength={8}
       />
-      <Button title="Validate Token" onPress={handleValidateToken} />
+      <TouchableOpacity
+        style={tw`bg-blue-500 p-3 rounded mb-3`}
+        onPress={handleValidateToken}
+      >
+        <Text style={tw`text-white text-center`}>Validate Token</Text>
+      </TouchableOpacity>
       {days !== null && <Text>Days: {days}</Text>}
-      {error && <Text style={styles.error}>{error}</Text>}
+      {error && <Text style={tw`text-red-500`}>{error}</Text>}
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    padding: 16,
-  },
-  input: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginBottom: 12,
-    paddingLeft: 8,
-  },
-  error: {
-    color: 'red',
-  },
-});
 
 export default TokenValidator;

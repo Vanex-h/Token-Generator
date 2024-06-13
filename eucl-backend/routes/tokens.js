@@ -20,7 +20,7 @@ router.post('/generate-token', async (req, res) => {
     }
 
     const token = String(Math.floor(10000000 + Math.random() * 90000000));
-
+    console.log(token)
     const newToken = new Token({
         meterNumber,
         token,
